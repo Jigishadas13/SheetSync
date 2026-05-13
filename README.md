@@ -1,5 +1,4 @@
-# Excel Clone
-
+# SheetSync
 A fully functional Microsoft Excel clone built with pure HTML, CSS, and vanilla JavaScript. This application provides a comprehensive spreadsheet experience with most of the essential features found in Microsoft Excel.
 
 ## Features
