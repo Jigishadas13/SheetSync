@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Clone</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="excel-container">
+        <!-- Menu Bar -->
+        <div class="menu-bar" >
+            <div class="menu-item" onclick="newFile()" ><b>New</b></div>
+            <div class="menu-item" onclick="openFile()" ><b>Open</b></div>
+
+            <div class="menu-item" onclick="exportToXLSX()" ><b>Export to XLSX</b></div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <!-- Font Controls -->
+            <div class="toolbar-group">
+                <select id="fontFamily" onchange="changeFontFamily(this.value)">
+                    <option value="Arial">Arial</option>
+                    <option value="Calibri">Calibri</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Courier New">Courier New</option>
+                </select>
+                <select id="fontSize" onchange="changeFontSize(this.value)">
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12" selected>12</option>
+                    <option value="14">14</option>
+                    <option value="16">16</option>
+                    <option value="18">18</option>
+                    <option value="20">20</option>
+                    <option value="24">24</option>
+                </select>
+            </div>
+
+            <!-- Formatting Controls -->
+            <div class="toolbar-group">
+                <button id="boldBtn" onclick="toggleBold()" class="format-btn">B</button>
+                <button id="italicBtn" onclick="toggleItalic()" class="format-btn">I</button>
+                <button id="underlineBtn" onclick="toggleUnderline()" class="format-btn">U</button>
+            </div>
+
+            <!-- Alignment Controls -->
+            <div class="toolbar-group">
+                <button onclick="setAlignment('left')" class="align-btn">⬅</button>
+                <button onclick="setAlignment('center')" class="align-btn">⬌</button>
+                <button onclick="setAlignment('right')" class="align-btn">➡</button>
+            </div>
+
+            <!-- Color Controls -->
+            <div class="toolbar-group">
+                <input type="color" id="textColor" onchange="changeTextColor(this.value)" title="Text Color">
+                <input type="color" id="bgColor" onchange="changeBackgroundColor(this.value)" title="Background Color">
+            </div>
+
+            <!-- Border Controls -->
+            <div class="toolbar-group">
+                <button onclick="toggleBorder('all')" class="border-btn">All Borders</button>
+                <button onclick="toggleBorder('outline')" class="border-btn">Outline</button>
+                <button onclick="toggleBorder('inside')" class="border-btn">Inside</button>
+                <button onclick="clearBorders()" class="border-btn">No Border</button>
+            </div>
+
+            <!-- Insert/Delete Controls -->
+            <div class="toolbar-group">
+                <button onclick="insertRow()" class="action-btn">Insert Row</button>
+                <button onclick="deleteRow()" class="action-btn">Delete Row</button>
+                <button onclick="insertColumn()" class="action-btn">Insert Column</button>
+                <button onclick="deleteColumn()" class="action-btn">Delete Column</button>
+            </div>
+        </div>
+
+        <!-- Formula Bar -->
+        <div class="formula-bar">
+            <div class="cell-address" id="cellAddress">A1</div>
+            <input type="text" id="formulaInput" placeholder="Enter formula or value" onkeydown="handleFormulaInput(event)">
+        </div>
+
+        <!-- Main Spreadsheet Area -->
+        <div class="spreadsheet-container">
+            <!-- Row Headers -->
+            <div class="row-headers">
+                <div class="corner-cell"></div>
+                <div class="row-header" id="rowHeaders"></div>
+            </div>
+
+            <!-- Column Headers -->
+            <div class="column-headers" id="columnHeaders"></div>
+
+            <!-- Data Grid -->
+            <div class="data-grid" id="dataGrid"></div>
+
+            <!-- Selection Indicator -->
+            <div class="selection-indicator" id="selectionIndicator"></div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span id="statusText">Ready</span>
+            <span id="selectionInfo"></span>
+        </div>
+    </div>
+
+    <!-- Hidden file input for opening files -->
+    <input type="file" id="fileInput" accept=".xlsx,.xls" style="display: none;" onchange="handleFileOpen(event)">
+
+    <script src="script.js"></script>
+</body>
+</html>
